@@ -67,4 +67,15 @@ class SupportController extends Controller
         
         return redirect()->route('supports.index');
     }
+
+    public function destroy(Support $support, int $id)
+    {
+        if (!$support = $support->find($id)) {
+            return back();
+        }
+        
+        $support->delete();
+        
+        return redirect()->route('supports.index');
+    }
 }
