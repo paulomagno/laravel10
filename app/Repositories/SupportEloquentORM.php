@@ -4,30 +4,62 @@ namespace App\Repositories;
 
 use App\DTO\CreateSupportDTO;
 use App\DTO\UpdateSupportDTO;
+use App\Models\Support;
 use stdClass;
 
 class SupportEloquentORM implements SupportRepositoryInterface
 {
+    protected Support $model;
+    
+    public function __construct(Support $model)
+    {
+        $this->model = $model;
+    }
+    
     public function getAll(string $filter = null): array
     {
-        return [];
+        return $this->model
+                    ->where(function ($query) use ($filter) {
+                        if ($filter) {
+                            $query->where('subject', $filter);
+                            $query->orWhere('body', 'like', "%{$filter}%");
+                        }
+                    })
+                    ->get()
+                    ->toArray();
     }
 
     public function findOne(string $id): stdClass 
     {
-        return new stdClass();
+        $support = $this->model->find($id);
+        
+        if (!$support) {
+            return null;
+        }
+        
+        return (object) $support->toArray();
     }
     
     public function delete(int $id): void 
     {
-       
+       $this->model->findOrFail($id)->delete();
     }
     public function new(CreateSupportDTO $dto) : stdClass
     {
-        return new stdClass();
+        $support = $this->model->create((array) $dto);
+        
+        return (object) $support->toArray();
     }
     public function update(UpdateSupportDTO $dto): stdClass
     {
-        return new stdClass();
+        $support = $this->model->find($dto->id);
+        if (!$support) {
+            return null;
+        }
+        
+        $support->update((array) $dto);
+
+        return (object) $support->toArray();
+        
     }
 }
