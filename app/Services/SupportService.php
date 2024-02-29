@@ -15,6 +15,16 @@ class SupportService
     {
         $this->repository = $repository;
     }
+
+    public function paginante(
+        int $page = 1, 
+        int $totalPerPage = 15,
+        string $filter = null 
+    ) {
+        return $this->repository->paginate($page, $totalPerPage, $filter);
+    }
+
+    
     public function getAll(string $filter = null): array
     {
         return $this->repository->getAll($filter);
