@@ -21,12 +21,15 @@ class SupportController extends Controller
     {
         $supports = $this->service->paginante(
             $request->get('page', 1),
-            $request->get('per_page', 15),
+            $request->get('per_page', 1),
             $request->filter
         );
+
+        $filters = ['filter' => $request->get('fiter', '')];
        
         return view('admin/supports/index', [
-            'supports' => $supports
+            'supports' => $supports,
+            'filters'  => $filters
         ]);
     }
 
