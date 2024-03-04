@@ -2,19 +2,20 @@
 
 namespace App\DTO\Supports;
 
+use App\Enums\SupportStatus;
 use App\Http\Requests\StoreUpdateSupportRequest;
 
 class UpdateSupportDTO
 {
     public int $id;
     public string $subject;
-    public string $status;
+    public SupportStatus $status;
     public string $body;
 
     public function __construct(
         int $id,
         string $subject,
-        string $status,
+        SupportStatus $status,
         string $body
     ) {
         $this->id = $id;
@@ -28,7 +29,7 @@ class UpdateSupportDTO
         return new self(
             $request->id,
             $request->subject,
-            'a',
+            SupportStatus::A,
             $request->body
         );
     }
