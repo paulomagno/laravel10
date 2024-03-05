@@ -31,7 +31,7 @@ class SupportService
         return $this->repository->getAll($filter);
     }
 
-    public function findOne(int $id): stdClass
+    public function findOne(string $id): ?stdClass
     {
         return $this->repository->findOne($id);
     }
