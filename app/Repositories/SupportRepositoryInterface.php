@@ -13,5 +13,5 @@ interface SupportRepositoryInterface
     public function findOne(string $id): ?stdClass;
     public function delete(int $id): void;
     public function new(CreateSupportDTO $dto): stdClass;
-    public function update(UpdateSupportDTO $dto): stdClass;
+    public function update(UpdateSupportDTO $dto): ?stdClass;
 }

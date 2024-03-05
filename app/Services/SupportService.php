@@ -48,7 +48,7 @@ class SupportService
         $this->repository->delete($id);
     }
 
-    public function update(UpdateSupportDTO $dto): stdClass
+    public function update(UpdateSupportDTO $dto): ?stdClass
     {
         return $this->repository->update($dto);
     }
