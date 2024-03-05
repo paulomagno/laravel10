@@ -7,13 +7,13 @@ use App\Http\Requests\StoreUpdateSupportRequest;
 
 class UpdateSupportDTO
 {
-    public int $id;
+    public string $id;
     public string $subject;
     public SupportStatus $status;
     public string $body;
 
     public function __construct(
-        int $id,
+        string $id,
         string $subject,
         SupportStatus $status,
         string $body
@@ -24,10 +24,10 @@ class UpdateSupportDTO
         $this->body = $body;
     }
 
-    public static function makeFromRequest(StoreUpdateSupportRequest $request): self
+    public static function makeFromRequest(StoreUpdateSupportRequest $request, string $id = null): self
     {
         return new self(
-            $request->id,
+            $id ?? $request->id,
             $request->subject,
             SupportStatus::A,
             $request->body
