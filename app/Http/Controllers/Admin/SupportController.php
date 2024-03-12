@@ -21,7 +21,7 @@ class SupportController extends Controller
     {
         $supports = $this->service->paginante(
             $request->get('page', 1),
-            $request->get('per_page', 1),
+            $request->get('per_page', 6),
             $request->filter
         );
 
@@ -42,7 +42,9 @@ class SupportController extends Controller
     {
         $this->service->new(CreateSupportDTO::makeFromRequest($request));
         
-        return redirect()->route('supports.index');
+        return redirect()
+            ->route('supports.index')
+            ->with('message', 'Cadastrado com sucesso!');
     }
 
     public function show(int $id)
@@ -75,13 +77,17 @@ class SupportController extends Controller
             return back();
         }
         
-        return redirect()->route('supports.index');
+        return redirect()
+                ->route('supports.index')
+                ->with('message', 'Atualizado com sucesso!');
     }
 
     public function destroy(int $id)
     {
         $this->service->delete($id);
         
-        return redirect()->route('supports.index');
+        return redirect()
+                ->route('supports.index')
+                ->with('message', 'Deletado com sucesso!');
     }
 }
